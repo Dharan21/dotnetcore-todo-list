@@ -43,7 +43,6 @@ namespace ToDoList.Controllers
             {
                 ViewData["IsOverFlow"] = false;
             }
-            ViewData["Environment"] = this._configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");
             return View(this._toDoListRepository.GetAll());
         }
 
