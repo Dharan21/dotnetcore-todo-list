@@ -1,4 +1,5 @@
 ﻿@model System.Collections.Generic.IList<ToDoList.Models.ToDoItem>
+@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnv
 @inject Microsoft.Extensions.Options.IOptions<ListSettings> listSettings
 @{
     ViewData["Title"] = "Home Page";
@@ -33,5 +34,5 @@
 </ul>
 
 <div class="text-center">
-    <h3 class="display-4">Environment: <strong>@((string)ViewData["Environment"])</strong></h3>
+    <h4>Environment: <strong>@hostingEnv.EnvironmentName</strong></h4>
 </div>
