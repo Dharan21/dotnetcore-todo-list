@@ -14,22 +14,16 @@ namespace ToDoList.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IToDoListRepository _toDoListRepository;
         private readonly IOptions<ListSettings> _listSettingsOption;
-        private readonly IConfiguration _configuration;
 
         public HomeController(
-            ILogger<HomeController> logger, 
             IToDoListRepository toDoListRepository,
-            IOptions<ListSettings> listSettingsOption,
-            IConfiguration configuration
+            IOptions<ListSettings> listSettingsOption
         )
         {
-            _logger = logger;
             this._toDoListRepository = toDoListRepository;
             this._listSettingsOption = listSettingsOption;
-            this._configuration = configuration;
         }
 
         public IActionResult Index()
@@ -38,7 +32,7 @@ namespace ToDoList.Controllers
             if (this._toDoListRepository.CheckOverflow(maxCapacity))
             {
                 ViewData["IsOverFlow"] = true;
-            } 
+            }
             else
             {
                 ViewData["IsOverFlow"] = false;
@@ -50,13 +44,11 @@ namespace ToDoList.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(AddTaskRequestModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                
-               
                 this._toDoListRepository.Add(model.Task);
             }
-           return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         public IActionResult CompleteTask(Guid id)
