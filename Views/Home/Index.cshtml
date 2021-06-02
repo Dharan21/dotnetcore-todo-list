@@ -1,0 +1,37 @@
+﻿@model System.Collections.Generic.IList<ToDoList.Models.ToDoItem>
+@inject Microsoft.Extensions.Options.IOptions<ListSettings> listSettings
+@{
+    ViewData["Title"] = "Home Page";
+    string backgroundColor = listSettings.Value.BackgroundColor;
+}
+
+
+@using (Html.BeginForm("Add", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div id="myDIV" class="header" style="background-color: @backgroundColor">
+        <h2>My To Do List</h2>
+        @if ((bool)ViewData["IsOverFlow"])
+        {
+            <div class="alert alert-danger" role="alert">
+                Maximun Capacity Reached for Adding Tasks
+            </div>
+        }
+        else
+        {
+            <input type="text" id="myInput" name="Task" placeholder="Enter Task..." maxlength="20">
+            <button type="submit" class="addBtn">Add</button>
+        }
+    </div>
+}
+
+<ul class="task-items">
+    @foreach (ToDoList.Models.ToDoItem task in Model)
+    {
+        @await Component.InvokeAsync("ToDoItem", task)
+    }
+</ul>
+
+<div class="text-center">
+    <h3 class="display-4">Environment: <strong>@((string)ViewData["Environment"])</strong></h3>
+</div>
