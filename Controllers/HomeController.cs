@@ -37,7 +37,7 @@ namespace ToDoList.Controllers
             {
                 ViewData["IsOverFlow"] = false;
             }
-            return View(this._toDoListRepository.GetAll());
+            return View();
         }
 
         [HttpPost]

@@ -1,5 +1,4 @@
-﻿@model System.Collections.Generic.IList<ToDoList.Models.ToDoItem>
-@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnv
+﻿@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnv
 @inject Microsoft.Extensions.Options.IOptions<ListSettings> listSettings
 @{
     ViewData["Title"] = "Home Page";
@@ -20,18 +19,13 @@
         }
         else
         {
-            <input type="text" id="myInput" name="Task" placeholder="Enter Task..." maxlength="20">
+            <input type="text" id="myInput" name="Task" placeholder="Enter Task..." maxlength="100">
             <button type="submit" class="addBtn">Add</button>
         }
     </div>
 }
 
-<ul class="task-items">
-    @foreach (ToDoList.Models.ToDoItem task in Model)
-    {
-        @await Component.InvokeAsync("ToDoItem", task)
-    }
-</ul>
+@await Component.InvokeAsync("ToDoList")
 
 <div class="text-center">
     <h4>Environment: <strong>@hostingEnv.EnvironmentName</strong></h4>
