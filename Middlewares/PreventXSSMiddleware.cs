@@ -62,6 +62,7 @@ namespace ToDoList.Middlewares
             //    httpContext.Request.Body = originalBody;
             //}
             await _next(httpContext);
+            httpContext.Response.Headers.Add("X-Xss-Protection", "1");
         }
 
         private static async Task<string> ReadRequestBody(HttpContext context)
