@@ -30,27 +30,21 @@ namespace ToDoList.Repository
             return this._list.Count >= maxCapacity;
         }
 
-        public void CompleteTask(Guid id)
+        public void ToggleCompleteTask(Guid id)
         {
-            var task = this._list.Where(l => l.Id == id).FirstOrDefault();
-            task.IsCompleted = true;
+            var task = this._list.FirstOrDefault(l => l.Id == id);
+            task.IsCompleted = !task.IsCompleted;
         }
 
         public void Delete(Guid id)
         {
-            var task = this._list.Where(l => l.Id == id).FirstOrDefault();
+            var task = this._list.FirstOrDefault(l => l.Id == id);
             this._list.Remove(task);
         }
 
         public IList<ToDoItem> GetAll()
         {
             return this._list;
-        }
-
-        public void UndoComplete(Guid id)
-        {
-            var task = this._list.Where(l => l.Id == id).FirstOrDefault();
-            task.IsCompleted = false;
         }
     }
 }

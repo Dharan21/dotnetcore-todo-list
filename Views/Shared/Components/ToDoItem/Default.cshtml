@@ -15,11 +15,11 @@
     <div>
         @if (Model.IsCompleted)
         {
-            @Html.ActionLink("Undo Complete", "UndoCompleteTask", "Home", new { @id = Model.Id }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Completed", "UndoCompleteTask", "Home", new { @id = Model.Id }, new { @class = "btn btn-success" })
         }
         else
         {
-            @Html.ActionLink("Complete Task", "CompleteTask", "Home", new { @id = Model.Id }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Pending", "CompleteTask", "Home", new { @id = Model.Id }, new { @class = "btn btn-warning" })
         }
         @Html.ActionLink("Delete Task", "DeleteTask", "Home", new { @id = Model.Id }, new { @class = "btn btn-danger" })
     </div>

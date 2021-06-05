@@ -44,7 +44,8 @@ namespace ToDoList.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Add(AddTaskRequestModel model)
         {
-            if (ModelState.IsValid)
+            int maxCapacity = this._listSettingsOption.Value.MaxCapacity;
+            if (ModelState.IsValid && !this._toDoListRepository.CheckOverflow(maxCapacity))
             {
                 this._toDoListRepository.Add(model.Task);
             }
@@ -53,13 +54,13 @@ namespace ToDoList.Controllers
 
         public IActionResult CompleteTask(Guid id)
         {
-            this._toDoListRepository.CompleteTask(id);
+            this._toDoListRepository.ToggleCompleteTask(id);
             return RedirectToAction("Index");
         }
 
         public IActionResult UndoCompleteTask(Guid id)
         {
-            this._toDoListRepository.UndoComplete(id);
+            this._toDoListRepository.ToggleCompleteTask(id);
             return RedirectToAction("Index");
         }
 

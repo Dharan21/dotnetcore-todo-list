@@ -1,5 +1,4 @@
-﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
-@inject Microsoft.Extensions.Options.IOptions<ListSettings> listSettings
+﻿@inject Microsoft.Extensions.Options.IOptions<ListSettings> listSettings
 @{
     ViewData["Title"] = "Home Page";
     string backgroundColor = listSettings.Value.BackgroundColor;
@@ -26,7 +25,3 @@
 }
 
 @await Component.InvokeAsync("ToDoList")
-
-<div class="text-center">
-    <h4>Environment: <strong>@hostingEnv.EnvironmentName</strong></h4>
-</div>

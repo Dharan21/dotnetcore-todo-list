@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostingEnv
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -30,6 +31,9 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+        <div class="text-center">
+            <h4>Environment: <strong>@hostingEnv.EnvironmentName</strong></h4>
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">

@@ -11,8 +11,7 @@ namespace ToDoList.Repository.Interfaces
         IList<ToDoItem> GetAll();
         void Add(string task);
         void Delete(Guid id);
-        void CompleteTask(Guid id);
-        void UndoComplete(Guid id);
+        void ToggleCompleteTask(Guid id);
         bool CheckOverflow(int maxCapacity);
     }
 }
