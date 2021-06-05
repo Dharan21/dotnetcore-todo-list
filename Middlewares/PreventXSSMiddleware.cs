@@ -44,38 +44,8 @@ namespace ToDoList.Middlewares
                     await RespondWithAnErrorView(httpContext);
                 }
             }
-
-            //Check XSS in request content
-            var originalBody = httpContext.Request.Body;
-            try
-            {
-                var content = await ReadRequestBody(httpContext);
-
-                if (IsDangerousString(content))
-                {
-                    await RespondWithAnErrorView(httpContext);
-                }
-                await _next(httpContext);
-            }
-            finally
-            {
-                httpContext.Request.Body = originalBody;
-            }
-        }
-
-        private static async Task<string> ReadRequestBody(HttpContext context)
-        {
-            var buffer = new MemoryStream();
-            await context.Request.Body.CopyToAsync(buffer);
-            context.Request.Body = buffer;
-            buffer.Position = 0;
-
-            var encoding = Encoding.UTF8;
-
-            var requestContent = await new StreamReader(buffer, encoding).ReadToEndAsync();
-            context.Request.Body.Position = 0;
-
-            return requestContent;
+            await _next(httpContext);
+            
         }
 
         private async Task RespondWithAnErrorView(HttpContext context)
@@ -110,14 +80,12 @@ namespace ToDoList.Middlewares
                         // If the & is followed by a #, it's unsafe (e.g. S) 
                         if (s[n + 1] == '#') return true;
                         break;
-
                 }
 
                 // Continue searching
                 i = n + 1;
             }
         }
-
 
         private static bool IsAtoZ(char c)
         {
