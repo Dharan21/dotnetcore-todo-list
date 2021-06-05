@@ -45,24 +45,22 @@ namespace ToDoList.Middlewares
                 }
             }
 
-            // Check XSS in request content
-            //var originalBody = httpContext.Request.Body;
-            //try
-            //{
-            //    var content = await ReadRequestBody(httpContext);
+            //Check XSS in request content
+            var originalBody = httpContext.Request.Body;
+            try
+            {
+                var content = await ReadRequestBody(httpContext);
 
-            //    if (IsDangerousString(content))
-            //    {
-            //        await RespondWithAnErrorView(httpContext);
-            //    }
-            //    await _next(httpContext);
-            //}
-            //finally
-            //{
-            //    httpContext.Request.Body = originalBody;
-            //}
-            await _next(httpContext);
-            httpContext.Response.Headers.Add("X-Xss-Protection", "1");
+                if (IsDangerousString(content))
+                {
+                    await RespondWithAnErrorView(httpContext);
+                }
+                await _next(httpContext);
+            }
+            finally
+            {
+                httpContext.Request.Body = originalBody;
+            }
         }
 
         private static async Task<string> ReadRequestBody(HttpContext context)
