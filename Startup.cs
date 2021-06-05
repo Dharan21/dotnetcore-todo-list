@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ToDoList.Middlewares;
 using ToDoList.Models;
 using ToDoList.Repository;
 using ToDoList.Repository.Interfaces;
@@ -48,6 +49,8 @@ namespace ToDoList
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UsePreventXSSMiddleware();
 
             app.UseRouting();
 
