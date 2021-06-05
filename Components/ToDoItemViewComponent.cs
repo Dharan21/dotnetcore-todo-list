@@ -11,7 +11,7 @@ namespace ToDoList.Components
     {
         public async Task<IViewComponentResult> InvokeAsync(ToDoItem item)
         {
-            return View(item);
+            return await Task.FromResult(View(item));
         }
     }
 }
